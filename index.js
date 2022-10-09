@@ -11,11 +11,15 @@ const PORT = process.env.PORT || 5000;
 //database connect
 require("./db/mongodbConnection");
 
+require("express-async-errors");
+
 //Sıralama önemlidir. yoksa işlemi göremezsin!
 //Middlewares
-app.use(express.json()) //gönderilen isteklerin body'sinin okunmasını sağlayan middlewaredir.
-app.use(express.json({ limit: '50mb' })); //json 50mb 'e kadar çekebilsin demektir. node.js için gerekli.
-app.use(express.urlencoded({ limit: '50mb', extended: true, parameterLimit: 50000 })); //url'i encoded edebilsin demektir. node.js için gereklidir.
+app.use(express.json()); //gönderilen isteklerin body'sinin okunmasını sağlayan middlewaredir.
+app.use(express.json({ limit: "50mb" })); //json 50mb 'e kadar çekebilsin demektir. node.js için gerekli.
+app.use(
+  express.urlencoded({ limit: "50mb", extended: true, parameterLimit: 50000 })
+); //url'i encoded edebilsin demektir. node.js için gereklidir.
 
 const router = require("./routers/indexRouter");
 app.use("/api", router);
